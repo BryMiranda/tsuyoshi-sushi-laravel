@@ -4,7 +4,12 @@
 
 @section('content')
     <div class="bg-white p-4 shadow rounded">
-        <h2 class="text-xl font-bold mb-4">Mis Pedidos</h2>
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold">Mis Pedidos</h2>
+            <a href="{{ route('pedidos.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Agregar Pedido
+            </a>
+        </div>
         <table class="min-w-full bg-white">
             <thead>
             <tr class="bg-gray-200 text-gray-700">
@@ -26,16 +31,12 @@
                         <a href="{{ route('pedidos.show', $pedido->id) }}" class="text-blue-500 hover:text-blue-600">
                             Ver
                         </a>
-                        {{-- Ejemplo de link para pago --}}
-                        @if($pedido->estado === 'pendiente')
-                            <a href="{{ route('pago.form', $pedido->id) }}" class="ml-4 text-green-500 hover:text-green-600">
-                                Pagar
-                            </a>
-                        @endif
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="5" class="py-4 text-center">No has realizado pedidos</td></tr>
+                <tr>
+                    <td colspan="5" class="py-4 text-center">No has realizado pedidos</td>
+                </tr>
             @endforelse
             </tbody>
         </table>

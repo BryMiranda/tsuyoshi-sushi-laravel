@@ -19,7 +19,7 @@ class EmpleadoController extends Controller
         }
 
         $pedidos = Pedido::where('estado', 'pendiente')->get();
-        return view('empleados.pedidosPendientes', compact('pedidos'));
+        return view('pedidos.index', compact('pedidos'));
     }
 
     /**
@@ -28,7 +28,7 @@ class EmpleadoController extends Controller
     public function prepararPedido($id)
     {
         $pedido = Pedido::findOrFail($id);
-        $pedido->update(['estado' => 'preparado']);
+        $pedido->update(['estado' => 'en_proceso']);
 
         return redirect()->back()->with('success','Pedido marcado como preparado.');
     }
