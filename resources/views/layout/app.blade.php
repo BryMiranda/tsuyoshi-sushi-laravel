@@ -33,7 +33,7 @@
         <!-- Nav links -->
         <div class="flex items-center space-x-4">
             @guest
-                <a href="{{ route('login.form') }}" class="text-gray-600 hover:text-gray-800">Login</a>
+                <a href="{{ route('login') }}" class="text-gray-600 hover:text-gray-800">Login</a>
                 <a href="{{ route('register.form') }}" class="text-gray-600 hover:text-gray-800">Registro</a>
             @endguest
 
