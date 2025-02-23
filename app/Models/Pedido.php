@@ -28,7 +28,7 @@ class Pedido extends Model
     /**
      * Relación: Un pedido tiene muchos detalles (productos pedidos).
      */
-    public function detallePedidos()
+    public function detalles()
     {
         return $this->hasMany(DetallePedido::class);
     }

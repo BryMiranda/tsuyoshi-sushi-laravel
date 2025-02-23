@@ -28,20 +28,36 @@
                         <a href="{{ route('pedidos.show', $pedido->id) }}" class="text-blue-500 hover:text-blue-600 mr-2">
                             Ver
                         </a>
-                        <!-- Ejemplo de cambio de estado -->
-                        <form action="{{ route('pedidos.updateEstado', $pedido->id) }}" method="POST" class="inline-block">
-                            @csrf
-                            @method('PUT')
-                            <input type="hidden" name="estado" value="en_proceso">
-                            <button class="text-sm bg-yellow-400 px-2 py-1 rounded hover:bg-yellow-500"
-                                    onclick="return confirm('¿Cambiar estado a en_proceso?')">
-                                Procesar
-                            </button>
-                        </form>
+                        @if($pedido->estado === 'en_proceso')
+                            <!-- CTA: Finalizar y enviar pedido -->
+                            <form action="{{ route('pedidos.updateEstado', $pedido->id) }}" method="POST" class="inline-block">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="estado" value="en_camino">
+                                <button class="text-sm bg-green-500 px-2 py-1 rounded hover:bg-green-600"
+                                        onclick="return confirm('¿Finalizar y enviar pedido?')">
+                                    Finalizar y enviar pedido
+                                </button>
+                            </form>
+                        @endif
+                        @if($pedido->estado === 'pendiente')
+                            <!-- CTA: Procesar (cambia estado a en_proceso) -->
+                            <form action="{{ route('pedidos.updateEstado', $pedido->id) }}" method="POST" class="inline-block">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="estado" value="en_proceso">
+                                <button class="text-sm bg-yellow-400 px-2 py-1 rounded hover:bg-yellow-500"
+                                        onclick="return confirm('¿Cambiar estado a en_proceso?')">
+                                    Procesar
+                                </button>
+                            </form>
+                        @endif
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="6" class="py-4 text-center">No hay pedidos</td></tr>
+                <tr>
+                    <td colspan="6" class="py-4 text-center">No hay pedidos</td>
+                </tr>
             @endforelse
             </tbody>
         </table>

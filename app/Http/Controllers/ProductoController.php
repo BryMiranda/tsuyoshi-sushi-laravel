@@ -30,16 +30,16 @@ class ProductoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre'     => 'required|string|max:255',
-            'descripcion'=> 'nullable|string',
-            'precio'     => 'required|numeric|min:0',
-            'stock'      => 'nullable|integer|min:0'
+            'nombre'      => 'required|string|max:255',
+            'descripcion' => 'nullable|string',
+            'precio'      => 'required|numeric|min:0',
+            'stock'       => 'nullable|integer|min:0'
         ]);
 
         Producto::create($request->all());
 
         return redirect()->route('productos.index')
-            ->with('success','Producto creado correctamente.');
+            ->with('success', 'Producto creado correctamente.');
     }
 
     /**
@@ -57,7 +57,7 @@ class ProductoController extends Controller
     public function edit($id)
     {
         $producto = Producto::findOrFail($id);
-        return view('productos.pedidosPendientes', compact('producto'));
+        return view('productos.edit', compact('producto'));
     }
 
     /**
@@ -66,17 +66,17 @@ class ProductoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nombre'     => 'required|string|max:255',
-            'descripcion'=> 'nullable|string',
-            'precio'     => 'required|numeric|min:0',
-            'stock'      => 'nullable|integer|min:0'
+            'nombre'      => 'required|string|max:255',
+            'descripcion' => 'nullable|string',
+            'precio'      => 'required|numeric|min:0',
+            'stock'       => 'nullable|integer|min:0'
         ]);
 
         $producto = Producto::findOrFail($id);
         $producto->update($request->all());
 
         return redirect()->route('productos.index')
-            ->with('success','Producto actualizado correctamente.');
+            ->with('success', 'Producto actualizado correctamente.');
     }
 
     /**
@@ -88,6 +88,6 @@ class ProductoController extends Controller
         $producto->delete();
 
         return redirect()->route('productos.index')
-            ->with('success','Producto eliminado correctamente.');
+            ->with('success', 'Producto eliminado correctamente.');
     }
 }
