@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -16,20 +17,10 @@ use App\Http\Controllers\EmpleadoController;
 */
 
 // Página principal (puede ser landing page o welcome)
-Route::get('/', function () {
-    // Si el usuario está autenticado
-    if (Auth::check()) {
-        // Redirigir al home (o dashboard) - ajusta a tu gusto
-        return redirect()->route('home');
-    }
-    // Si no está autenticado, redirigir al login
-    return redirect()->route('login.form');
-});
+Route::get('/home', function () {
+    return view('home');
+})->name('home')->middleware('auth');
 
-/**
- * Rutas de autenticación (AuthController)
- * Si utilizas Laravel Breeze u otro paquete, ajusta/omite estas rutas
- */
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login.process');
 
@@ -38,10 +29,10 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.pr
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-/**
- * Rutas de productos (CRUD - Resource controller)
- * Generado con: php artisan make:controller ProductoController --resource
- */
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard')
+    ->middleware('auth');
+
 Route::resource('productos', ProductoController::class);
 
 /**
